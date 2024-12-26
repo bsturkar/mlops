@@ -36,17 +36,16 @@ def get_csvs_df(path):
 
 # TO DO: add function to split data
 
-def split_data(df, test_size=0.2, random_state=42, target_column='target'):
-   
-    # Separate features and target
-    X = df.drop(columns=[target_column])
-    y = df[target_column]
+def split_data(df):
+    # split dataframe into X and y
+    X, y = df[['Pregnancies', 'PlasmaGlucose', 'DiastolicBloodPressure',
+               'TricepsThickness', 'SerumInsulin', 'BMI', 'DiabetesPedigree',
+               'Age']].values, df['Diabetic'].values
 
-    # Split the data
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_size, random_state=random_state
-    )
+    # train/test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
 
+    # return splits and encoder
     return X_train, X_test, y_train, y_test
 
 
